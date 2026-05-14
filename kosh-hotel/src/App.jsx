@@ -4,7 +4,7 @@ import {
 } from "react-router-dom";
 
 import Home from "./pages/Home";
-import Products from "./pages/Products";
+import Booking from "./pages/Booking";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 
@@ -28,8 +28,8 @@ function App() {
         />
 
         <Route
-          path="/products"
-          element={<Products />}
+          path="/Booking"
+          element={<Booking />}
         />
 
         <Route

@@ -44,7 +44,7 @@ function AdminLogin() {
         // ADMIN CHECK
         if (
           user.email !==
-          "fineday@gmail.com"
+          "thekosh12@gmail.com"
         ) {
 
           alert(
@@ -81,7 +81,7 @@ function AdminLogin() {
 
       <form
         onSubmit={handleLogin}
-        className="bg-white p-8 rounded-2xl shadow-xl w-[380px]"
+        className="bg-white p-8 rounded-2xl shadow-xl w-95"
       >
 
         <h1 className="text-4xl font-bold text-center mb-6">

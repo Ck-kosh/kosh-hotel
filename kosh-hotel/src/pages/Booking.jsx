@@ -5,12 +5,13 @@ import ProductCard from "../components/ProductCard";
 import Cart from "../components/Cart";
 import SearchBar from "../components/SearchBar";
 
-function Products() {
+function Booking() {
 
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [search, setSearch] = useState("");
 
+  // FETCH PRODUCTS
   const fetchProducts = async () => {
 
     try {
@@ -25,21 +26,23 @@ function Products() {
     }
   };
 
-  // FETCH PRODUCTS
   useEffect(() => {
+
     const loadProducts = async () => {
+
       await fetchProducts();
     };
 
     loadProducts();
+
   }, []);
 
-  // ADD TO CART
+  // BOOK ROOM
   const addToCart = async (product) => {
 
     if (product.quantity <= 0) {
 
-      alert("Out of stock");
+      alert("Room unavailable");
 
       return;
     }
@@ -51,7 +54,7 @@ function Products() {
         (item) => item.id === product.id
       );
 
-      // IF PRODUCT EXISTS
+      // IF ROOM EXISTS
       if (existingItem) {
 
         return prevCart.map((item) =>
@@ -68,7 +71,7 @@ function Products() {
         );
       }
 
-      // NEW PRODUCT
+      // NEW ROOM
       return [
         ...prevCart,
         {
@@ -78,7 +81,7 @@ function Products() {
       ];
     });
 
-    // UPDATE UI ONLY
+    // UPDATE UI
     setProducts((prevProducts) =>
 
       prevProducts.map((item) =>
@@ -94,7 +97,7 @@ function Products() {
       )
     );
 
-    // UPDATE DB.JSON
+    // UPDATE DATABASE
     try {
 
       await API.patch(
@@ -110,12 +113,12 @@ function Products() {
     }
   };
 
-  // BUY
+  // CONFIRM BOOKING
   const handleBuy = () => {
 
     if (cart.length === 0) {
 
-      alert("Cart is empty");
+      alert("No rooms selected");
 
       return;
     }
@@ -136,7 +139,7 @@ function Products() {
     const items = cart.map((item) =>
 
       `${item.name}
-x${item.cartQuantity}
+Rooms: ${item.cartQuantity}
 - Ksh ${
         item.price *
         item.cartQuantity
@@ -145,15 +148,17 @@ x${item.cartQuantity}
 
     alert(
 
-`Purchase Successful!
+`Booking Successful!
 
 ${items}
 
 TOTAL:
-Ksh ${total}`
+Ksh ${total}
+
+Thank you for choosing Kosh Hotel.`
     );
 
-    // CLEAR CART ONLY
+    // CLEAR BOOKINGS
     setCart([]);
   };
 
@@ -168,43 +173,70 @@ Ksh ${total}`
 
   return (
 
-    <div className="p-8 bg-gray-100 min-h-screen">
-          {/* TITLE */}
-      <h1 className="text-5xl font-bold mb-6">
-        Products
-      </h1>
+    <div className="min-h-screen bg-[#f5f5f5]">
 
-      {/* SEARCH */}
-      <SearchBar
-        search={search}
-        setSearch={setSearch}
-      />
+      {/* HERO SECTION */}
+      <div className="relative h-[40vh] w-full">
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <img
+          src="https://images.unsplash.com/photo-1566073771259-6a8506099945"
+          alt="Hotel"
+          className="w-full h-full object-cover"
+        />
 
-        {/* PRODUCTS */}
-        <div className="lg:col-span-3">
+        {/* OVERLAY */}
+        <div className="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-center px-4">
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <p className="text-white uppercase tracking-[5px] mb-4 text-sm">
+            Luxury Accommodation
+          </p>
 
-            {filteredProducts.map((product) => (
-
-              <ProductCard
-                key={product.id}
-                product={product}
-                addToCart={addToCart}
-              />
-            ))}
-
-          </div>
+          <h1 className="text-white text-5xl md:text-6xl font-light">
+            Book Your Stay
+          </h1>
 
         </div>
 
-        {/* CART */}
-        <Cart
-          cart={cart}
-          handleBuy={handleBuy}
-        />
+      </div>
+
+      {/* CONTENT */}
+      <div className="max-w-7xl mx-auto px-6 py-16">
+
+        {/* SEARCH */}
+        <div className="mb-10">
+          <SearchBar
+            search={search}
+            setSearch={setSearch}
+          />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+
+          {/* ROOMS */}
+          <div className="lg:col-span-3">
+
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+
+              {filteredProducts.map((product) => (
+
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  addToCart={addToCart}
+                />
+              ))}
+
+            </div>
+
+          </div>
+
+          {/* BOOKING SUMMARY */}
+          <Cart
+            cart={cart}
+            handleBuy={handleBuy}
+          />
+
+        </div>
 
       </div>
 
@@ -212,4 +244,4 @@ Ksh ${total}`
   );
 }
 
-export default Products;
+export default Booking;

@@ -6,7 +6,7 @@ function SearchBar({
   return (
     <input
       type="text"
-      placeholder="Search products..."
+      placeholder="view services..."
       value={search}
       onChange={(e) =>
         setSearch(e.target.value)
