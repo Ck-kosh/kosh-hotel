@@ -18,7 +18,7 @@ import {
 
 function AdminDashboard() {
 
-  const [products, setProducts] =
+  const [rooms, setRooms] =
     useState([]);
 
   const [showForm, setShowForm] =
@@ -30,8 +30,17 @@ function AdminDashboard() {
   const [price, setPrice] =
     useState("");
 
-  const [quantity, setQuantity] =
+  const [vacantRooms, setVacantRooms] =
     useState("");
+
+  const [takenRooms, setTakenRooms] =
+    useState(0);
+
+  const [bedrooms, setBedrooms] =
+    useState(1);
+
+  const [internet, setInternet] =
+    useState(true);
 
   const [image, setImage] =
     useState("");
@@ -39,7 +48,7 @@ function AdminDashboard() {
   const navigate =
     useNavigate();
 
-  const fetchProducts =
+  const fetchRooms =
     async () => {
 
       try {
@@ -53,7 +62,7 @@ function AdminDashboard() {
           response.data
         );
 
-        setProducts(
+        setRooms(
           response.data
         );
 
@@ -65,13 +74,13 @@ function AdminDashboard() {
       }
     };
 
-  // FETCH PRODUCTS
+  // FETCH ROOMS
   useEffect(() => {
-    const loadProducts = async () => {
-      await fetchProducts();
+    const loadRooms = async () => {
+      await fetchRooms();
     };
 
-    loadProducts();
+    loadRooms();
   }, []);
 
   // UPDATE PRICE
@@ -79,17 +88,17 @@ function AdminDashboard() {
     async (id, value) => {
 
         // UPDATE UI FIRST
-        setProducts((prevProducts) =>
+        setRooms((prevRooms) =>
 
-        prevProducts.map((product) =>
+        prevRooms.map((room) =>
 
-            product.id === id
+            room.id === id
             ? {
-                ...product,
+                ...room,
                 price:
                     Number(value)
                 }
-            : product
+            : room
         )
         );
 
@@ -111,31 +120,29 @@ function AdminDashboard() {
     };
 
   // UPDATE QUANTITY
-    const updateQuantity =
+const updateVacantRooms =
     async (id, value) => {
 
-        // UPDATE UI
-        setProducts((prevProducts) =>
+        setRooms((prevRooms) =>
 
-        prevProducts.map((product) =>
+        prevRooms.map((room) =>
 
-            product.id === id
+            room.id === id
             ? {
-                ...product,
-                quantity:
+                ...room,
+                vacantRooms:
                     Number(value)
-                }
-            : product
+            }
+            : room
         )
         );
 
-        // UPDATE DB
         try {
 
         await axios.patch(
             `http://localhost:3001/products/${id}`,
             {
-            quantity:
+            vacantRooms:
                 Number(value)
             }
         );
@@ -146,16 +153,115 @@ function AdminDashboard() {
         }
     };
 
+    const updateTakenRooms =
+    async (id, value) => {
+
+        setRooms((prevRooms) =>
+
+        prevRooms.map((room) =>
+
+            room.id === id
+            ? {
+                ...room,
+                takenRooms:
+                    Number(value)
+            }
+            : room
+        )
+        );
+
+        try {
+
+        await axios.patch(
+            `http://localhost:3001/products/${id}`,
+            {
+            takenRooms:
+                Number(value)
+            }
+        );
+
+        } catch (error) {
+
+        console.log(error);
+        }
+    };
+
+    const updateBedrooms =
+    async (id, value) => {
+
+        setRooms((prevRooms) =>
+
+        prevRooms.map((room) =>
+
+            room.id === id
+            ? {
+                ...room,
+                bedrooms:
+                    Number(value)
+            }
+            : room
+        )
+        );
+
+        try {
+
+        await axios.patch(
+            `http://localhost:3001/products/${id}`,
+            {
+            bedrooms:
+                Number(value)
+            }
+        );
+
+        } catch (error) {
+
+        console.log(error);
+        }
+    };
+
+    const updateInternet =
+    async (id, value) => {
+
+        setRooms((prevRooms) =>
+
+        prevRooms.map((room) =>
+
+            room.id === id
+            ? {
+                ...room,
+                internet:
+                    value === "true"
+            }
+            : room
+        )
+        );
+
+        try {
+
+        await axios.patch(
+            `http://localhost:3001/products/${id}`,
+            {
+            internet:
+                value === "true"
+            }
+        );
+
+        } catch (error) {
+
+        console.log(error);
+        }
+    };
+
   // DELETE
-    const deleteProduct =
+    const deleteRoom =
     async (id) => {
 
         // REMOVE FROM UI
-        setProducts((prevProducts) =>
+        setRooms((prevRooms) =>
 
-        prevProducts.filter(
-            (product) =>
-            product.id !== id
+        prevRooms.filter(
+            (room) =>
+            room.id !== id
         )
         );
 
@@ -172,13 +278,13 @@ function AdminDashboard() {
         }
     };
 
-  // ADD PRODUCT
-    const addProduct =
+  // ADD ROOM
+    const addRoom =
     async (e) => {
 
         e.preventDefault();
 
-        const newProduct = {
+        const newRoom = {
 
         id: Date.now(),
 
@@ -187,16 +293,23 @@ function AdminDashboard() {
         price:
             Number(price),
 
-        quantity:
-            Number(quantity),
+        vacantRooms:
+            Number(vacantRooms),
+
+        takenRooms:
+            Number(takenRooms),
+
+        bedrooms,
+
+        internet,
 
         image
         };
 
         // UPDATE UI IMMEDIATELY
-        setProducts((prevProducts) => [
-        ...prevProducts,
-        newProduct
+        setRooms((prevRooms) => [
+        ...prevRooms,
+        newRoom
         ]);
 
         // UPDATE DB.JSON
@@ -204,7 +317,7 @@ function AdminDashboard() {
 
         await axios.post(
             "http://localhost:3001/products",
-            newProduct
+            newRoom
         );
 
         } catch (error) {
@@ -212,12 +325,15 @@ function AdminDashboard() {
         console.log(error);
         }
 
-        alert("Product Added!");
+        alert("Room Added!");
 
         // CLEAR FORM
         setName("");
         setPrice("");
-        setQuantity("");
+        setVacantRooms("");
+        setTakenRooms(0);
+        setBedrooms(1);
+        setInternet(true);
         setImage("");
 
         setShowForm(false);
@@ -271,24 +387,24 @@ function AdminDashboard() {
 
       </div>
 
-      {/* ADD PRODUCT FORM */}
+      {/* ADD ROOM FORM */}
       {showForm && (
 
         <form
         onSubmit={(e) => {
             e.preventDefault();
-            addProduct(e);
+            addRoom(e);
         }}
          className="bg-white p-6 rounded-xl shadow-lg mb-8"
         >
 
           <h2 className="text-2xl font-bold mb-4">
-            Add Product
+            Add Room Type
           </h2>
 
           <input
             type="text"
-            placeholder="Product Name"
+            placeholder="Room Type Name"
             value={name}
             onChange={(e) =>
               setName(
@@ -300,7 +416,7 @@ function AdminDashboard() {
 
           <input
             type="number"
-            placeholder="Price"
+            placeholder="Price Per Night"
             value={price}
             onChange={(e) =>
               setPrice(
@@ -312,15 +428,54 @@ function AdminDashboard() {
 
           <input
             type="number"
-            placeholder="Quantity"
-            value={quantity}
+            placeholder="Vacant Rooms"
+            value={vacantRooms}
             onChange={(e) =>
-              setQuantity(
+              setVacantRooms(
                 e.target.value
               )
             }
             className="border p-3 rounded-lg w-full mb-4"
           />
+
+          <input
+            type="number"
+            placeholder="Taken Rooms"
+            value={takenRooms}
+            onChange={(e) =>
+              setTakenRooms(
+                Number(e.target.value)
+              )
+            }
+            className="border p-3 rounded-lg w-full mb-4"
+          />
+
+          <input
+            type="number"
+            placeholder="Bedrooms"
+            value={bedrooms}
+            onChange={(e) =>
+              setBedrooms(
+                Number(e.target.value)
+              )
+            }
+            className="border p-3 rounded-lg w-full mb-4"
+          />
+
+          <select
+            value={internet}
+            onChange={(e) =>
+              setInternet(e.target.value === "true")
+            }
+            className="border p-3 rounded-lg w-full mb-4"
+          >
+            <option value="true">
+              Internet available
+            </option>
+            <option value="false">
+              No internet
+            </option>
+          </select>
 
           <input
             type="text"
@@ -335,84 +490,149 @@ function AdminDashboard() {
           />
 
           <button
+            type="submit"
             className="bg-black text-white px-6 py-3 rounded-lg"
           >
-            Add Product
+            Add Room Type
           </button>
-
         </form>
       )}
 
-      {/* PRODUCTS */}
+      {/* ROOM TYPES */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-        {products.length > 0 ? (
+        {rooms.length > 0 ? (
 
-          products.map((product) => (
+          rooms.map((room) => (
 
             <div
-              key={product.id}
+              key={room.id}
               className="bg-white p-4 rounded-xl shadow-lg"
             >
 
               <img
-                src={product.image}
-                alt={product.name}
+                src={room.image}
+                alt={room.name}
                 className="w-full h-48 object-cover rounded-lg"
               />
 
               <h2 className="text-2xl font-bold mt-4">
-                {product.name}
+                {room.name}
               </h2>
 
               {/* PRICE */}
               <label className="font-semibold">
-                Price
+                Price Per Night
               </label>
 
               <input
                 type="number"
                 defaultValue={
-                  product.price
+                  room.price
                 }
                 onBlur={(e) =>
                   updatePrice(
-                    product.id,
+                    room.id,
                     e.target.value
                   )
                 }
                 className="border p-2 rounded-lg w-full mt-2 mb-4"
               />
 
-              {/* QUANTITY */}
+              {/* VACANT ROOMS */}
               <label className="font-semibold">
-                Quantity
+                Vacant Rooms
               </label>
 
               <input
                 type="number"
                 defaultValue={
-                  product.quantity
+                  room.vacantRooms ?? room.quantity
                 }
                 onBlur={(e) =>
-                  updateQuantity(
-                    product.id,
+                  updateVacantRooms(
+                    room.id,
                     e.target.value
                   )
                 }
                 className="border p-2 rounded-lg w-full mt-2"
               />
 
+              <p className="text-sm text-gray-500 mt-2">
+                Available rooms shown here are editable and saved to the dashboard.
+              </p>
+
+              {/* TAKEN ROOMS */}
+              <label className="font-semibold mt-4 block">
+                Taken Rooms
+              </label>
+
+              <input
+                type="number"
+                defaultValue={
+                  room.takenRooms ?? 0
+                }
+                onBlur={(e) =>
+                  updateTakenRooms(
+                    room.id,
+                    e.target.value
+                  )
+                }
+                className="border p-2 rounded-lg w-full mt-2"
+              />
+
+              {/* BEDROOMS */}
+              <label className="font-semibold mt-4 block">
+                Bedrooms
+              </label>
+
+              <input
+                type="number"
+                defaultValue={room.bedrooms ?? 1}
+                onBlur={(e) =>
+                  updateBedrooms(
+                    room.id,
+                    e.target.value
+                  )
+                }
+                className="border p-2 rounded-lg w-full mt-2"
+              />
+
+              {/* INTERNET */}
+              <label className="font-semibold mt-4 block">
+                Internet
+              </label>
+
+              <select
+                defaultValue={
+                  room.internet ? "true" : "false"
+                }
+                onChange={(e) =>
+                  updateInternet(
+                    room.id,
+                    e.target.value
+                  )
+                }
+                className="border p-2 rounded-lg w-full mt-2"
+              >
+                <option value="true">
+                  Internet available
+                </option>
+                <option value="false">
+                  No internet
+                </option>
+              </select>
+
               {/* DELETE */}
               <button
                 onClick={() =>
-                  deleteProduct(
-                    product.id
+                  deleteRoom(
+                    room.id
                   )
                 }
                 className="mt-4 bg-red-600 text-white px-4 py-2 rounded-lg w-full"
               >
-                Delete Product
+                Remove Room
               </button>
 
             </div>
@@ -421,7 +641,7 @@ function AdminDashboard() {
         ) : (
 
           <h1 className="text-2xl">
-            No Products Found
+            No Room Types Found
           </h1>
         )}
 

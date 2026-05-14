@@ -4,7 +4,7 @@ import {
 
 import axios from "axios";
 
-function AddProduct() {
+function AddRoommm() {
 
   const [name, setName] =
     useState("");

@@ -23,6 +23,14 @@ function Booking() {
     } catch (error) {
 
       console.log(error);
+
+      try {
+        const module = await import("../../db.json");
+        const fallbackProducts = module.default?.products || module.products || [];
+        setProducts(fallbackProducts);
+      } catch (importError) {
+        console.error(importError);
+      }
     }
   };
 
@@ -40,7 +48,12 @@ function Booking() {
   // BOOK ROOM
   const addToCart = async (product) => {
 
-    if (product.quantity <= 0) {
+    const availableRooms =
+      product.vacantRooms ?? product.quantity ?? 0;
+    const takenRooms =
+      product.takenRooms ?? 0;
+
+    if (availableRooms <= 0) {
 
       alert("Room unavailable");
 
@@ -54,7 +67,6 @@ function Booking() {
         (item) => item.id === product.id
       );
 
-      // IF ROOM EXISTS
       if (existingItem) {
 
         return prevCart.map((item) =>
@@ -71,7 +83,6 @@ function Booking() {
         );
       }
 
-      // NEW ROOM
       return [
         ...prevCart,
         {
@@ -90,7 +101,10 @@ function Booking() {
 
           ? {
               ...item,
-              quantity: item.quantity - 1
+              vacantRooms:
+                (item.vacantRooms ?? item.quantity ?? 0) - 1,
+              takenRooms:
+                (item.takenRooms ?? 0) + 1
             }
 
           : item
@@ -103,7 +117,10 @@ function Booking() {
       await API.patch(
         `/products/${product.id}`,
         {
-          quantity: product.quantity - 1
+          vacantRooms:
+            availableRooms - 1,
+          takenRooms:
+            takenRooms + 1
         }
       );
 

@@ -39,6 +39,18 @@ function Cart({
               {item.name}
             </p>
 
+            {item.bedrooms && (
+              <p className="text-gray-600">
+                {item.bedrooms} Bedroom{item.bedrooms > 1 ? "s" : ""}
+              </p>
+            )}
+
+            {item.internet !== undefined && (
+              <p className="text-gray-600">
+                {item.internet ? "Internet available" : "No internet"}
+              </p>
+            )}
+
             <p className="text-gray-600">
               Rooms Booked:
               {" "}

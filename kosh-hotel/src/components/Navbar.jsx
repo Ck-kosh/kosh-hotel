@@ -2,36 +2,49 @@ import { Link } from "react-router-dom";
 
 function Navbar() {
 
-  return (
+ return (
+  <nav className="bg-yellow-600 text-white px-8 py-4 flex items-center justify-between shadow-lg">
+    
+    {/* Left Side Links */}
+    <div className="flex gap-6 font-semibold">
+      <Link to="/" className="hover:text-black transition">
+        Home
+      </Link>
 
-    <nav className="bg-black text-white p-4 flex justify-between">
+      <Link to="/hotel-details" className="hover:text-black transition">
+        Hotel Details
+      </Link>
 
-      <h1 className="text-2xl font-bold">
-        Kosh Hotel
-      </h1>
+      <Link to="/Booking" className="hover:text-black transition">
+        Rooms
+      </Link>
 
-      <div className="flex gap-6">
+      <Link to="/contact-us" className="hover:text-black transition">
+        Contact Us
+      </Link>
 
-        <Link to="/">
-          Home
-        </Link>
+      <Link to="/admin-login" className="hover:text-black transition">
+        Admin
+      </Link>
+    </div>
 
-        <Link to="/services">
-          Services
-        </Link>
+    {/* Center Button */}
+    <div>
+      <Link
+        to="/Booking"
+        className="bg-black text-yellow-500 px-5 py-2 rounded-full font-bold hover:bg-white hover:text-black transition"
+      >
+        Book Now
+      </Link>
+    </div>
 
-        <Link to="/Booking">
-          Rooms
-        </Link>
-
-        <Link to="/admin-login">
-          Admin
-        </Link>
-
-      </div>
-
-    </nav>
-  );
+    {/* Right Side Logo */}
+    <h1 className="text-3xl font-bold tracking-wide">
+      Kosh Hotel
+    </h1>
+    
+  </nav>
+);
 }
 
 export default Navbar;

@@ -22,20 +22,32 @@ function ProductCard({ product, addToCart }) {
           {product.name}
         </h3>
 
+        {product.bedrooms && (
+          <p className="text-gray-600 mb-2">
+            {product.bedrooms} Bedroom{product.bedrooms > 1 ? "s" : ""}
+          </p>
+        )}
+
+        {product.internet !== undefined && (
+          <p className="text-gray-600 mb-2">
+            {product.internet ? "Internet available" : "No internet"}
+          </p>
+        )}
+
         <p className="text-gray-600 mb-2">
-          Available Rooms: {product.quantity}
+          Available Rooms: {product.vacantRooms ?? product.quantity}
         </p>
 
         <button
           onClick={() => addToCart(product)}
-          disabled={product.quantity <= 0}
+          disabled={(product.vacantRooms ?? product.quantity) <= 0}
           className={`w-full py-3 rounded-xl text-white font-medium transition ${
-            product.quantity > 0
+            (product.vacantRooms ?? product.quantity) > 0
               ? "bg-black hover:bg-gray-800"
               : "bg-gray-400 cursor-not-allowed"
           }`}
         >
-          {product.quantity > 0
+          {(product.vacantRooms ?? product.quantity) > 0
             ? "Book Room"
             : "Fully Booked"}
         </button>

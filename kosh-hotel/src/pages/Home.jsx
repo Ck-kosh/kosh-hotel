@@ -189,9 +189,9 @@ function Home() {
       </section>
 
       {/* FOOTER CTA */}
-      <section className="bg-black text-white py-20 px-6 text-center">
+      <section className="bg-yellow-600 text-white py-20 px-6 text-center">
 
-        <p className="uppercase tracking-[4px] text-sm mb-4 text-gray-400">
+        <p className="uppercase tracking-[4px] text-sm mb-4 text-white">
           Book Your Stay
         </p>
 
@@ -201,7 +201,7 @@ function Home() {
 
         <button
           onClick={() => navigate("/Booking")}
-          className="bg-white text-black px-8 py-4 uppercase tracking-widest hover:bg-gray-200 transition"
+          className="bg-yellow text-black px-8 py-4 uppercase tracking-widest hover:bg-gray-200 transition"
         >
           Go To Booking
         </button>

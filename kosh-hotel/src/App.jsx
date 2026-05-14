@@ -7,6 +7,9 @@ import Home from "./pages/Home";
 import Booking from "./pages/Booking";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
+import HotelDetails from "./pages/HotelDetails";
+import ContactUs from "./pages/ContactUs";
+import Billing from "./pages/Billing";
 
 import Navbar from "./components/Navbar";
 
@@ -30,6 +33,21 @@ function App() {
         <Route
           path="/Booking"
           element={<Booking />}
+        />
+
+        <Route
+          path="/hotel-details"
+          element={<HotelDetails />}
+        />
+
+        <Route
+          path="/contact-us"
+          element={<ContactUs />}
+        />
+
+        <Route
+          path="/billing"
+          element={<Billing />}
         />
 
         <Route
