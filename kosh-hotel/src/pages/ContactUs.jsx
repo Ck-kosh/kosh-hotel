@@ -82,9 +82,10 @@ const ContactUs = () => {
         <p className="mb-2">Address: 7 Kapsio, Iten, Kenya</p>
         <p className="mb-2">Phone: +(254) 769-021-360</p>
         <p className="mb-2">Email: info@koshhotel.com</p>
-        <a href="wa.me/+254769021360" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-yellow-500">
+        <a href="https://web.whatsapp.com/send?phone=254769021360" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-yellow-500">
           Chat with us on WhatsApp
         </a>
+    
       </div>
     </div>
   );

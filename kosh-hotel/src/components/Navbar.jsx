@@ -22,7 +22,6 @@ function Navbar() {
       <Link to="/contact-us" className="hover:text-black transition">
         Contact Us
       </Link>
-
       <Link to="/admin-login" className="hover:text-black transition">
         Admin
       </Link>

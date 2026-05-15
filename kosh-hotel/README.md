@@ -1,6 +1,6 @@
-# FineDay Shop
+# Kosh Hotel
 
-FineDay Shop is a React + Vite shopping application that allows users to browse products, add items to cart, and purchase products while an admin manages inventory through a protected dashboard.
+Kosh Hotel is a React + Vite hotel booking application that allows users to browse hotels, add bookings to cart, and purchase bookings while an admin manages inventory through a protected dashboard.
 
 ---
 
@@ -76,7 +76,7 @@ src/
 ## 1. Clone Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/fineday-shop.git
+git clone https://github.com/YOUR_USERNAME/kosh-hotel.git
 ```
 
 ---
@@ -84,7 +84,7 @@ git clone https://github.com/YOUR_USERNAME/fineday-shop.git
 ## 2. Open Project
 
 ```bash
-cd fineday-shop
+cd kosh-hotel
 ```
 
 ---
@@ -157,10 +157,10 @@ Current Admin Credentials:
 
 ```bash
 Email:
-fineday@gmail.com
+kosh-hotel@gmail.com
 
 Password:
-finedayshopping
+kosh-hotelshopping
 ```
 
 ---

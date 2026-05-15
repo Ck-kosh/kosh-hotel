@@ -2,6 +2,7 @@ function Cart({
   cart,
   handleBuy
 }) {
+  
 
   // TOTAL
   const total = cart.reduce(

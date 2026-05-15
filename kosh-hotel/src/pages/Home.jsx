@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
+
 function Home() {
   const navigate = useNavigate();
 
@@ -40,6 +41,7 @@ function Home() {
           >
             Book Now
           </button>
+         
 
         </div>
 
@@ -207,6 +209,7 @@ function Home() {
         </button>
 
       </section>
+      
 
     </div>
   );

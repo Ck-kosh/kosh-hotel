@@ -7,9 +7,9 @@ const HotelDetails = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
           <img
-            src="https://via.placeholder.com/600x400?text=Kosh+Hotel"
-            alt="Kosh Hotel"
-            className="w-full h-64 object-cover rounded-lg shadow-md"
+            src="https://images.unsplash.com/photo-1566073771259-6a8506099945"
+            alt="Luxury Hotel"
+            className="h-full w-full object-cover"
           />
         </div>
         <div>
@@ -30,12 +30,15 @@ const HotelDetails = () => {
         </div>
       </div>
       <div className="mt-8">
+        
         <h2 className="text-2xl font-bold mb-4">Location</h2>
         <p className="text-gray-700 mb-4">
           Located at 7 Kapsio, Iten, Kenya. 
           Easily accessible from the airport and major attractions.
         </p>
+      
         <div className="bg-gray-200 h-64 rounded-lg flex items-center justify-center">
+          
           <p className="text-gray-500">Location Map</p>
           <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-yellow-500">
             View on Google Maps

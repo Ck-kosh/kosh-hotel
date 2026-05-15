@@ -4,6 +4,7 @@ import AdminDashboard from "../pages/AdminDashboard";
 
 jest.mock("axios");
 jest.mock("firebase/auth", () => ({
+  getAuth: jest.fn(() => ({})),
   signOut: jest.fn().mockResolvedValue()
 }));
 jest.mock("react-router-dom", () => ({

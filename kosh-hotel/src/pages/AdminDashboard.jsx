@@ -16,7 +16,7 @@ import {
   useNavigate
 } from "react-router-dom";
 
-function AdminDashboard() {
+function AdminDashboard({ onLogout }) {
 
   const [rooms, setRooms] =
     useState([]);
@@ -57,10 +57,6 @@ function AdminDashboard() {
           await axios.get(
             "http://localhost:3001/products"
           );
-
-        console.log(
-          response.data
-        );
 
         setRooms(
           response.data
@@ -268,9 +264,16 @@ const updateVacantRooms =
         // REMOVE FROM DB
         try {
 
-        await axios.delete(
-            `http://localhost:3001/products/${id}`
-        );
+            await axios.delete(
+                `http://localhost:3001/products/${id}`
+            );
+
+            // notify other pages to refresh products (include id for delete)
+            try {
+              window.dispatchEvent(new CustomEvent("productsUpdated", { detail: { action: "delete", id } }));
+            } catch (err) {
+              console.log("dispatch error", err);
+            }
 
         } catch (error) {
 
@@ -320,6 +323,13 @@ const updateVacantRooms =
             newRoom
         );
 
+        // notify other pages to refresh products (include new room data)
+        try {
+          window.dispatchEvent(new CustomEvent("productsUpdated", { detail: newRoom }));
+        } catch (err) {
+          console.log("dispatch error", err);
+        }
+
         } catch (error) {
 
         console.log(error);
@@ -344,6 +354,14 @@ const updateVacantRooms =
     async () => {
 
       await signOut(auth);
+
+      if (onLogout) {
+        try {
+          onLogout();
+        } catch (err) {
+          console.log(err);
+        }
+      }
 
       navigate(
         "/admin-login"
@@ -380,7 +398,7 @@ const updateVacantRooms =
             onClick={handleLogout}
             className="bg-red-600 text-white px-4 py-2 rounded-lg"
           >
-            Sign Out
+            logOut
           </button>
 
         </div>
@@ -540,11 +558,12 @@ const updateVacantRooms =
               />
 
               {/* VACANT ROOMS */}
-              <label className="font-semibold">
+              <label htmlFor={`vacant-rooms-${room.id}`} className="font-semibold">
                 Vacant Rooms
               </label>
 
               <input
+                id={`vacant-rooms-${room.id}`}
                 type="number"
                 defaultValue={
                   room.vacantRooms ?? room.quantity

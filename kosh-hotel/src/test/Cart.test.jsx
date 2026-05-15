@@ -25,6 +25,6 @@ describe("Cart", () => {
     expect(screen.getByText(/One Bedroom/i)).toBeInTheDocument();
     expect(screen.getByText(/Rooms Booked:/i)).toHaveTextContent("2");
     expect(screen.getByText(/Grand Total:/i)).toBeInTheDocument();
-    expect(screen.getByText(/Ksh 9000/i)).toBeInTheDocument();
+    expect(screen.getByText(/Grand Total:/i).textContent).toContain("9000");
   });
 });

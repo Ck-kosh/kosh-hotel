@@ -7,9 +7,7 @@ import {
 import { auth }
 from "../services/firebase";
 
-import {
-  useNavigate
-} from "react-router-dom";
+import AdminDashboard from "./AdminDashboard";
 
 function AdminLogin() {
 
@@ -19,8 +17,12 @@ function AdminLogin() {
   const [password, setPassword] =
     useState("");
 
-  const navigate =
-    useNavigate();
+  const [adminAuthenticated,
+    setAdminAuthenticated] =
+    useState(
+      auth.currentUser?.email ===
+      "thekosh12@gmail.com"
+    );
 
   // LOGIN
   const handleLogin =
@@ -55,9 +57,7 @@ function AdminLogin() {
         }
 
         // SUCCESS
-        navigate(
-          "/admin-dashboard"
-        );
+        setAdminAuthenticated(true);
 
       } catch (error) {
 
@@ -74,6 +74,21 @@ function AdminLogin() {
         );
       }
     };
+
+  if (adminAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gray-100 p-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white p-6 rounded-xl shadow mb-6">
+            <h2 className="text-2xl font-semibold">Logged in as Admin</h2>
+            <p className="text-sm text-gray-600">You are signed in and can manage rooms below.</p>
+          </div>
+
+          <AdminDashboard onLogout={() => setAdminAuthenticated(false)} />
+        </div>
+      </div>
+    );
+  }
 
   return (
 

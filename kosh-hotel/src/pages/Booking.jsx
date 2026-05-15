@@ -45,6 +45,39 @@ function Booking() {
 
   }, []);
 
+  // REFRESH WHEN PRODUCTS UPDATED ELSEWHERE (e.g., admin adds/deletes)
+  useEffect(() => {
+    const handler = (e) => {
+      const detail = e?.detail;
+
+      // If admin provided the new room data, add it locally
+      if (detail && !detail.action) {
+        setProducts((prev) => {
+          // avoid duplicates
+          const exists = prev.find((p) => p.id === detail.id);
+          if (exists) return prev;
+          return [detail, ...prev];
+        });
+        return;
+      }
+
+      // If delete action provided, remove locally
+      if (detail && detail.action === "delete") {
+        setProducts((prev) => prev.filter((p) => p.id !== detail.id));
+        return;
+      }
+
+      // Fallback: refetch from API
+      fetchProducts();
+    };
+
+    window.addEventListener("productsUpdated", handler);
+
+    return () => {
+      window.removeEventListener("productsUpdated", handler);
+    };
+  }, []);
+
   // BOOK ROOM
   const addToCart = async (product) => {
 
@@ -260,5 +293,6 @@ Thank you for choosing Kosh Hotel.`
     </div>
   );
 }
+
 
 export default Booking;
