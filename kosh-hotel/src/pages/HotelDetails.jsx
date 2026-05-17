@@ -30,30 +30,20 @@ const HotelDetails = () => {
         </div>
       </div>
      <div className="tutorial-video">
-  <iframe
-    width="100%"
-    height="315"
-    src="https://lh3.googleusercontent.com/grass-cs/ANxoTn0dkXheakCkvBCfS-Urxf6el8GtejlsUBhKMAs7oCfOJVgHkPJXe09S7mgfyJJlU3efhqiSj7XBhF-ZgowcehJaYFu6tMssoPo6K5YGFG_lxWIRwMP8GlK3mh-LKbKeI0PsfxE8=m18"
-    title="Hotel Tour"
-    frameBorder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowFullScreen
-    style={{
-      maxWidth: "600px",
-      borderRadius: "12px",
-      marginTop: "20px",
-    }}
-  ></iframe>
+  
   <div>
-    <h2 className="text-2xl font-bold mt-8 mb-4">Dining & Services</h2>
+    <h2 className="text-2xl font-bold mt-8 mb-4">Dining/Services</h2>
     <p>
+
       <ul>
       <li>Food, restaurant, and other guest services are available at Kosh Hotel for your comfort and convenience.</li>
       <li>Enjoy delicious meals, restaurant services, and more during your stay at Kosh Hotel.</li>
       <li>Kosh Hotel offers food, restaurant, and additional hospitality services to all guests.</li>
       <li>Experience quality dining and excellent guest services at Kosh Hotel</li>
     </ul>
+
     </p>
+
   </div>
 </div>
       <div className="mt-8">
@@ -61,7 +51,6 @@ const HotelDetails = () => {
         <h2 className="text-2xl font-bold mb-4">Location</h2>
         <p className="text-gray-700 mb-4">
           Located at 7 Kapsio, Iten, Kenya. 
-          Easily accessible from the airport and major attractions.
         </p>
       
         <div className="bg-gray-200 h-64 rounded-lg flex items-center justify-center">

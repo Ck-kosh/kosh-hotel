@@ -81,7 +81,7 @@ function AdminLogin() {
         <div className="max-w-4xl mx-auto">
           <div className="bg-white p-6 rounded-xl shadow mb-6">
             <h2 className="text-2xl font-semibold">Logged in as Admin</h2>
-            <p className="text-sm text-gray-600">You are signed in and can manage rooms below.</p>
+            <p className="text-sm text-gray-600">You are signed in and can manage rooms.</p>
           </div>
 
           <AdminDashboard onLogout={() => setAdminAuthenticated(false)} />
@@ -96,14 +96,13 @@ function AdminLogin() {
 
       <form
         onSubmit={handleLogin}
-        className="bg-white p-8 rounded-2xl shadow-xl w-95"
-      >
+        className="bg-white p-8 rounded-2xl shadow-xl w-95">
 
         <h1 className="text-4xl font-bold text-center mb-6">
           Admin Login
         </h1>
 
-        {/* EMAIL */}
+        
         <input
           type="email"
           placeholder="Admin Email"

@@ -27,22 +27,13 @@ function Home() {
           </p>
 
           <h1 className="text-white text-5xl md:text-7xl font-light mb-6">
-            Kosh Hotel
+          Kosh Hotel
           </h1>
 
           <p className="text-gray-200 max-w-2xl text-lg leading-relaxed">
             Experience comfort, elegance, and convenience in one destination.
             Discover premium stays, exceptional hospitality, and unforgettable moments.
           </p>
-
-          <button
-            onClick={() => navigate("/Booking")}
-            className="mt-8 border border-white text-white px-8 py-3 uppercase tracking-widest hover:bg-white hover:text-black transition duration-300"
-          >
-            Book Now
-          </button>
-         
-
         </div>
 
       </section>
@@ -54,7 +45,7 @@ function Home() {
 
           <div className="p-10 md:p-16 flex flex-col justify-center">
 
-            <p className="uppercase tracking-[4px] text-sm text-gray-500 mb-4">
+            <p className="uppercase tracking-[4px] text-sm text-gray-700 mb-4">
               Luxury & Comfort
             </p>
 
@@ -67,13 +58,13 @@ function Home() {
               Whether you're traveling for business or relaxation, our rooms,
               dining, and personalized service ensure a memorable stay.
             </p>
-
+{/* 
             <button
               onClick={() => navigate("/Booking")}
               className="bg-black text-white px-8 py-4 uppercase tracking-wider hover:bg-gray-800 transition w-fit"
             >
               Explore Rooms
-            </button>
+            </button> */}
 
           </div>
 

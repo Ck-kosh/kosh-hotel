@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../services/api";
 
@@ -14,7 +14,7 @@ function Booking() {
   const navigate = useNavigate();
 
   // FETCH PRODUCTS
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
 
     try {
 
@@ -34,20 +34,14 @@ function Booking() {
         console.error(importError);
       }
     }
-  };
-
-  useEffect(() => {
-
-    const loadProducts = async () => {
-
-      await fetchProducts();
-    };
-
-    loadProducts();
-
   }, []);
 
-  // REFRESH WHEN PRODUCTS UPDATED ELSEWHERE (e.g., admin adds/deletes)
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    fetchProducts();
+  }, [fetchProducts]);
+
+  // REFRESH WHEN PRODUCTS UPDATED ELSEWHERE (e.g., admin adds/deletes, another tab books, or another browser session)
   useEffect(() => {
     const handler = (e) => {
       const detail = e?.detail;
@@ -55,7 +49,6 @@ function Booking() {
       // If admin provided the new room data, add it locally
       if (detail && !detail.action) {
         setProducts((prev) => {
-          // avoid duplicates
           const exists = prev.find((p) => p.id === detail.id);
           if (exists) return prev;
           return [detail, ...prev];
@@ -73,12 +66,27 @@ function Booking() {
       fetchProducts();
     };
 
+    const handleStorage = (event) => {
+      if (event.key === "productsUpdatedAt") {
+        fetchProducts();
+      }
+    };
+
+    const intervalId = window.setInterval(() => {
+      fetchProducts();
+    }, 10000);
+
     window.addEventListener("productsUpdated", handler);
+    window.addEventListener("storage", handleStorage);
+    window.addEventListener("focus", fetchProducts);
 
     return () => {
+      window.clearInterval(intervalId);
       window.removeEventListener("productsUpdated", handler);
+      window.removeEventListener("storage", handleStorage);
+      window.removeEventListener("focus", fetchProducts);
     };
-  }, []);
+  }, [fetchProducts]);
 
   // BOOK ROOM
   const addToCart = async (product) => {
@@ -158,6 +166,9 @@ function Booking() {
             takenRooms + 1
         }
       );
+
+      localStorage.setItem("productsUpdatedAt", String(Date.now()));
+      window.dispatchEvent(new CustomEvent("productsUpdated", { detail: { id: product.id } }));
 
     } catch (error) {
 

@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 import Booking from "../pages/Booking";
 import API from "../services/api";
 
@@ -24,7 +25,11 @@ describe("Booking page", () => {
   });
 
   it("renders the booking page and room card", async () => {
-    render(<Booking />);
+    render(
+      <BrowserRouter>
+        <Booking />
+      </BrowserRouter>
+    );
 
     expect(await screen.findByText(/Book Your Stay/i)).toBeInTheDocument();
     expect(await screen.findByText(/One Bedroom/i)).toBeInTheDocument();
