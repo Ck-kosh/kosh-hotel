@@ -18,6 +18,9 @@ function Navbar() {
       <Link to="/Booking" className="hover:text-black transition">
         Rooms
       </Link>
+ <Link to="/Billing" className="hover:text-black transition">
+        Billing
+      </Link>
 
       <Link to="/contact-us" className="hover:text-black transition">
         Contact Us

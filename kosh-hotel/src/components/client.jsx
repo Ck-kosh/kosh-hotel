@@ -206,7 +206,7 @@ export default function BrackenhurstLanding() {
 
             <p>
               Eco-conscious retreat and conference destination in
-              Limuru, Kenya.
+              Iten, Kenya.
             </p>
           </div>
 
@@ -224,8 +224,8 @@ export default function BrackenhurstLanding() {
           <div>
             <h4 className="font-semibold mb-3">Contact</h4>
 
-            <p>Limuru, Kiambu, Kenya</p>
-            <p>bookings@brackenhurst.com</p>
+            <p>Iten, Emc, Kenya</p>
+            <p>bookings@koshhotel.com</p>
           </div>
         </div>
       </footer>
