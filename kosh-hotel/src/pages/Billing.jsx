@@ -113,7 +113,7 @@ function Billing() {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Jane Doe"
+                  placeholder="Elias Kosh"
                   className="w-full rounded-3xl border border-slate-200 px-4 py-3"
                   required
                 />
@@ -125,7 +125,7 @@ function Billing() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="jane@example.com"
+                  placeholder="elias@gmail.com"
                   className="w-full rounded-3xl border border-slate-200 px-4 py-3"
                   required
                 />
@@ -204,7 +204,7 @@ function Billing() {
                         type="tel"
                         value={phoneNumber}
                         onChange={(e) => setPhoneNumber(e.target.value)}
-                        placeholder="254712345678"
+                        placeholder="254769021360"
                         className="w-full rounded-3xl border border-slate-200 px-4 py-3"
                         required
                       />
