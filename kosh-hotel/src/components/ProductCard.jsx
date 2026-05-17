@@ -28,6 +28,12 @@ function ProductCard({ product, addToCart }) {
           </p>
         )}
 
+        {product.features?.length > 0 && (
+          <p className="text-gray-600 mb-2">
+            Features: {product.features.join(", ")}
+          </p>
+        )}
+
         {product.internet !== undefined && (
           <p className="text-gray-600 mb-2">
             {product.internet ? "Internet available" : "No internet"}

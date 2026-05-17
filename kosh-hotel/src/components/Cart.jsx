@@ -99,7 +99,7 @@ function Cart({
         onClick={handleBuy}
         className="mt-6 w-full bg-black text-white py-4 rounded-xl hover:bg-gray-800 transition"
       >
-        Confirm Booking
+        Proceed to Payment
       </button>
 
     </div>

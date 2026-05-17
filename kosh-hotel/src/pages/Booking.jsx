@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import API from "../services/api";
 
 import ProductCard from "../components/ProductCard";
@@ -10,6 +11,7 @@ function Booking() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
   // FETCH PRODUCTS
   const fetchProducts = async () => {
@@ -163,53 +165,23 @@ function Booking() {
     }
   };
 
-  // CONFIRM BOOKING
-  const handleBuy = () => {
+  // PROCEED TO PAYMENT
+  const handleCheckout = () => {
 
     if (cart.length === 0) {
-
       alert("No rooms selected");
-
       return;
     }
 
     const total = cart.reduce(
-
-      (sum, item) =>
-
-        sum +
-        (
-          item.price *
-          item.cartQuantity
-        ),
-
+      (sum, item) => sum + item.price * item.cartQuantity,
       0
     );
 
-    const items = cart.map((item) =>
+    localStorage.setItem("bookingCart", JSON.stringify(cart));
+    localStorage.setItem("bookingTotal", JSON.stringify(total));
 
-      `${item.name}
-Rooms: ${item.cartQuantity}
-- Ksh ${
-        item.price *
-        item.cartQuantity
-      }`
-    ).join("\n");
-
-    alert(
-
-`Booking Successful!
-
-${items}
-
-TOTAL:
-Ksh ${total}
-
-Thank you for choosing Kosh Hotel.`
-    );
-
-    // CLEAR BOOKINGS
-    setCart([]);
+    navigate("/billing");
   };
 
   // SEARCH
@@ -283,7 +255,7 @@ Thank you for choosing Kosh Hotel.`
           {/* BOOKING SUMMARY */}
           <Cart
             cart={cart}
-            handleBuy={handleBuy}
+            handleBuy={handleCheckout}
           />
 
         </div>

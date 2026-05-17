@@ -42,6 +42,9 @@ function AdminDashboard({ onLogout }) {
   const [internet, setInternet] =
     useState(true);
 
+  const [features, setFeatures] =
+    useState("");
+
   const [image, setImage] =
     useState("");
 
@@ -248,6 +251,44 @@ const updateVacantRooms =
         }
     };
 
+    const updateFeatures =
+    async (id, value) => {
+
+        const featureList = value
+            .split(",")
+            .map((item) => item.trim())
+            .filter(Boolean);
+
+        setRooms((prevRooms) =>
+
+        prevRooms.map((room) =>
+
+            room.id === id
+            ? {
+                ...room,
+                features:
+                    featureList
+            }
+            : room
+        )
+        );
+
+        try {
+
+        await axios.patch(
+            `http://localhost:3001/products/${id}`,
+            {
+            features:
+                featureList
+            }
+        );
+
+        } catch (error) {
+
+        console.log(error);
+        }
+    };
+
   // DELETE
     const deleteRoom =
     async (id) => {
@@ -306,6 +347,11 @@ const updateVacantRooms =
 
         internet,
 
+        features: features
+          .split(",")
+          .map((item) => item.trim())
+          .filter(Boolean),
+
         image
         };
 
@@ -343,6 +389,7 @@ const updateVacantRooms =
         setVacantRooms("");
         setTakenRooms(0);
         setBedrooms(1);
+        setFeatures("");
         setInternet(true);
         setImage("");
 
@@ -476,6 +523,16 @@ const updateVacantRooms =
               setBedrooms(
                 Number(e.target.value)
               )
+            }
+            className="border p-3 rounded-lg w-full mb-4"
+          />
+
+          <input
+            type="text"
+            placeholder="Features (comma-separated)"
+            value={features}
+            onChange={(e) =>
+              setFeatures(e.target.value)
             }
             className="border p-3 rounded-lg w-full mb-4"
           />
@@ -616,6 +673,29 @@ const updateVacantRooms =
                 }
                 className="border p-2 rounded-lg w-full mt-2"
               />
+
+              {/* FEATURES */}
+              <label className="font-semibold mt-4 block">
+                Features
+              </label>
+
+              <textarea
+                defaultValue={
+                  room.features ? room.features.join(", ") : ""
+                }
+                onBlur={(e) =>
+                  updateFeatures(
+                    room.id,
+                    e.target.value
+                  )
+                }
+                className="border p-2 rounded-lg w-full mt-2 h-24 resize-none"
+                placeholder="Free WiFi, Breakfast included"
+              />
+
+              <p className="text-sm text-gray-500 mt-2">
+                Save features as comma-separated values.
+              </p>
 
               {/* INTERNET */}
               <label className="font-semibold mt-4 block">
