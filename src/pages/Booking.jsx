@@ -212,8 +212,8 @@ function Booking() {
       <div className="relative h-[40vh] w-full">
 
         <img
-          src="https://images.unsplash.com/photo-1566073771259-6a8506099945"
-          alt="Hotel"
+          src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1400&q=80"
+          alt="Bedroom"
           className="w-full h-full object-cover"
         />
 

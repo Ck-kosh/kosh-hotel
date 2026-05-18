@@ -7,8 +7,8 @@ const HotelDetails = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
           <img
-            src="https://images.unsplash.com/photo-1566073771259-6a8506099945"
-            alt="Luxury Hotel"
+            src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1400&q=80"
+            alt="Luxury Bedroom"
             className="h-full w-full object-cover"
           />
         </div>

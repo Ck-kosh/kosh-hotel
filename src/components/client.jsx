@@ -21,14 +21,14 @@ const rooms = [
   {
     name: "Executive Suite",
     image:
-      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=80",
     price: "KES 22,000",
     features: ["Private Lounge", "King Bed", "Nature Balcony"],
   },
   {
     name: "Conference Cottage",
     image:
-      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
+      "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80",
     price: "KES 35,000",
     features: ["Group Stay", "Fireplace", "Tea Field View"],
   },
@@ -43,7 +43,7 @@ export default function BrackenhurstLanding() {
         className="relative h-screen bg-cover bg-center"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1506744038136-46273834b3fb')",
+            "url('https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1400&q=80')",
         }}
       >
         <div className="absolute inset-0 bg-black/50" />
